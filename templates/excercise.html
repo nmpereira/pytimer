@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <title>Timer</title>
+</head>
+<body>
+    <div class="header"><h1 class="header__logo">Timer</h1></div>
+    <a href="{{ url_for('home') }}">Back to home</a>
+    <main class="main"><h2 class="heading">GO</h2>
+    <span class="timer" id="timer">{{ excercise }} s</span>
+    <progress max={{ excercise }} value={{ excercise }} class="progress progress--set" id="progressBar"></progress>
+
+
+    </form>
+    </main>
+    <script>        
+    const timerElement = document.getElementById("timer");
+    const progressBar = document.getElementById("progressBar");
+
+
+    let timerCounter = progressBar.max;
+
+    const interval= setInterval(()=>{
+        if (timerCounter <=1){
+            window.location.href="/rest";
+            clearInterval(interval);
+        }
+        timerCounter = timerCounter - 1;
+        timerElement.innerText = timerCounter + "s";
+        progressBar.value = timerCounter;
+        
+
+    },1000);
+    
+
+
+
+
+    </script>
+
+</body>
+</html>
