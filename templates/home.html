@@ -9,22 +9,23 @@
 </head>
 <body>
     <div class="header"><h1 class="header__logo">Timer</h1></div>
-    <a href="{{ url_for('home') }}">Back to home</a>
+    
    
     <main class="main"><h2 class="heading">Setup</h2>
     
 
-    <form class="form" method="post">
+    <form class="form" method="post"> 
     <label class="form__label" for="excercise"> Excercise:</label>
-    <input class="form__input" type="number" name="excercise" id="excercise" value="4">
+    <input class="form__input" type="number" name="excercise" id="excercise" placeholder="60" required=True min=0 max=99999999>
     <span class="unit">(Seconds)</span>
+    
 
     <label class="form__label" for="Rest"> Rest:</label>
-    <input class="form__input" type="number" name="rest" id="rest" value="2">
+    <input class="form__input" type="number" name="rest" id="rest" placeholder="10" required=True min=0 max=99999999>
     <span class="unit">(Seconds)</span>    
 
     <label class="form__label" for="Sets"> Sets:</label>
-    <input class="form__input" type="number" name="sets" id="sets" value="2">
+    <input class="form__input" type="number" name="sets" id="sets" placeholder="5" required=True min=0 max=99999999>
     <span class="unit">(Seconds)</span>
 
     <div class="form__button-container">
@@ -32,5 +33,6 @@
 
     </form>
     </main>
+    <script type="text/javascript" src="../static/scripts/script.js"></script>
 </body>
 </html>
