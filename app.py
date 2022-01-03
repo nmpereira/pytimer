@@ -34,3 +34,6 @@ def excercise():
         return redirect(url_for("complete"))
     session["set_counter"] +=1
     return render_template("excercise.html",excercise=session["excercise"])
+
+if __name__ == '__main__':
+    app.run()
