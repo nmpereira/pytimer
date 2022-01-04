@@ -560,7 +560,7 @@
       if (step) {
         newVal = this.minute + step;
       } else {
-        newVal = parseInt(this.minute) + parseInt(this.minuteStep) - (parseInt(this.minute) % parseInt(this.minuteStep));   
+        newVal = parseInt(this.minute) + parseInt(this.minuteStep) - (parseInt(this.minute) % parseInt(this.minuteStep));
       }
 
       if (newVal > 59) {

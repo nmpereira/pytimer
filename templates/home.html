@@ -1,3 +1,6 @@
+{% extends 'header.html' %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,21 +8,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <title>Timer</title>
+
+    
 </head>
 <body>
-    <div class="header"><h1 class="header__logo">Timer</h1></div>
+    
     
    
     <main class="main"><h2 class="heading">Setup</h2>
     
 
     <form class="form" method="post"> 
-    <label class="form__label" for="excercise"> Excercise:</label>
+    <label class="form__label" for="excercise"> Work:</label>
     <input class="form__input" type="text" name="excercise" id="excercise"  required=True>
     <span class="unit_time" id="unit_excercise"></span>
     
@@ -53,8 +53,8 @@
     const set_input = document.getElementById('sets');
     const log_set = document.getElementById('unit_sets');
 
-    excercise_input.addEventListener('change', updateValue_excercise);
-    rest_input.addEventListener('change', updateValue_rest);
+    excercise_input.addEventListener('input', updateValue_set);
+    rest_input.addEventListener('change', updateValue_set);
     set_input.addEventListener('change', updateValue_set);
 
 function hmsToSecondsOnly(str) {
@@ -70,19 +70,24 @@ function hmsToSecondsOnly(str) {
 }
 
 
-    function updateValue_excercise(e) {
-    let seconds= hmsToSecondsOnly(e.target.value)
-    log_excercise.textContent = Math.round((((seconds)/60) + Number.EPSILON) * 100) / 100 +' min';
-    console.log(e.target.value)
-    console.log(seconds)
 
-}
-    function updateValue_rest(e) {
-    log_rest.textContent = Math.round((((e.target.value)/60) + Number.EPSILON) * 100) / 100 +' min';
-}
 
     function updateValue_set() {
-    log_set.textContent = 'Total time:' + (((Math.round((((excercise_input.value)/60) + Number.EPSILON) * 100) / 100)+(Math.round((((rest_input.value)/60) + Number.EPSILON) * 100) / 100))*set_input.value) + ' min'
+    let seconds_excercise= hmsToSecondsOnly(excercise_input.value)
+    let seconds_rest= hmsToSecondsOnly(rest_input.value)
+
+
+    let sets_count= set_input.value
+    if (set_input && set_input.value){
+        
+        sets_count=(set_input.value)
+    }else{
+        sets_count=1
+    }
+    
+    log_excercise.textContent = Math.round((((seconds_excercise)/60) + Number.EPSILON) * 100) / 100 +' min';
+    log_rest.textContent = Math.round((((seconds_rest)/60) + Number.EPSILON) * 100) / 100 +' min';
+    log_set.textContent = 'Total time: ' + Math.round((((((seconds_excercise)/60) + Number.EPSILON) +((((seconds_rest)/60) + Number.EPSILON)))*sets_count)* 100) / 100 + ' min'
 }
 
 
@@ -108,3 +113,4 @@ function hmsToSecondsOnly(str) {
 
 </body>
 </html>
+{% endblock %}
