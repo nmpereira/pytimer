@@ -25,7 +25,7 @@
     let timerCounter = progressBar.max;
     const interval= setInterval(()=>{
         if (timerCounter <=1){
-            window.location.href="/excercise";
+            window.location.href="{{url_for('excercise')}}";
             clearInterval(interval);
         }
         timerCounter = timerCounter - 1;

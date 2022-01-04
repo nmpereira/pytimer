@@ -7,9 +7,18 @@ app.debug = True
 
 @app.route("/", methods=["GET","POST"])
 def home():
+    def to_seconds(timestr):
+        seconds= 0
+        for part in timestr.split(':'):
+            seconds= seconds*60 + int(part, 10)
+        return seconds
+
+
+
+    
     if request.method == "POST":
-        excercise= int(request.form["excercise"])
-        rest= int(request.form["rest"])
+        excercise= to_seconds(request.form["excercise"])
+        rest= to_seconds(request.form["rest"])
         sets= int(request.form["sets"])
 
         session["excercise"] = excercise
@@ -23,6 +32,8 @@ def home():
 @app.route("/rest")
 def rest():
     return render_template("rest.html", rest=session["rest"])
+
+
 
 @app.route("/complete")
 def complete():

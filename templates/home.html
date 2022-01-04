@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../static/css/styles.css">
     <title>Timer</title>
 </head>
@@ -16,17 +20,20 @@
 
     <form class="form" method="post"> 
     <label class="form__label" for="excercise"> Excercise:</label>
-    <input class="form__input" type="number" name="excercise" id="excercise" placeholder="60" required=True min=0 max=99999999>
-    <span class="unit">(Seconds)</span>
+    <input class="form__input" type="text" name="excercise" id="excercise"  required=True>
+    <span class="unit_time" id="unit_excercise"></span>
     
 
     <label class="form__label" for="Rest"> Rest:</label>
-    <input class="form__input" type="number" name="rest" id="rest" placeholder="10" required=True min=0 max=99999999>
-    <span class="unit">(Seconds)</span>    
+    <input class="form__input" type="text" name="rest" id="rest" placeholder="10" required=True>
+    
+    <span class="unit_time" id="unit_rest"></span>    
 
     <label class="form__label" for="Sets"> Sets:</label>
     <input class="form__input" type="number" name="sets" id="sets" placeholder="5" required=True min=0 max=99999999>
-    <span class="unit">(Seconds)</span>
+    
+    <span class="unit_set" id="unit_sets"></span>
+    
 
     <div class="form__button-container">
     <button class="button" type="submit">Start!</button>
@@ -34,5 +41,70 @@
     </form>
     </main>
     <script type="text/javascript" src="../static/scripts/script.js"></script>
+    
+    
+    <script>        
+
+
+    const excercise_input = document.getElementById('excercise');
+    const rest_input = document.getElementById('rest');
+    const log_excercise = document.getElementById('unit_excercise');
+    const log_rest = document.getElementById('unit_rest');
+    const set_input = document.getElementById('sets');
+    const log_set = document.getElementById('unit_sets');
+
+    excercise_input.addEventListener('change', updateValue_excercise);
+    rest_input.addEventListener('change', updateValue_rest);
+    set_input.addEventListener('change', updateValue_set);
+
+function hmsToSecondsOnly(str) {
+    var p = str.split(':'),
+        s = 0, m = 1;
+
+    while (p.length > 0) {
+        s += m * parseInt(p.pop(), 10);
+        m *= 60;
+    }
+
+    return s;
+}
+
+
+    function updateValue_excercise(e) {
+    let seconds= hmsToSecondsOnly(e.target.value)
+    log_excercise.textContent = Math.round((((seconds)/60) + Number.EPSILON) * 100) / 100 +' min';
+    console.log(e.target.value)
+    console.log(seconds)
+
+}
+    function updateValue_rest(e) {
+    log_rest.textContent = Math.round((((e.target.value)/60) + Number.EPSILON) * 100) / 100 +' min';
+}
+
+    function updateValue_set() {
+    log_set.textContent = 'Total time:' + (((Math.round((((excercise_input.value)/60) + Number.EPSILON) * 100) / 100)+(Math.round((((rest_input.value)/60) + Number.EPSILON) * 100) / 100))*set_input.value) + ' min'
+}
+
+
+
+
+    </script>
+<script type="text/javascript" src="../static/packages/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+
+    <script type="text/javascript">
+    $(function () {
+        $('#excercise, #rest').timepicker({
+            showMeridian: false,
+            showInputs: true,
+            maxHours:999999,
+            showSeconds:true,
+            defaultTime:'00:00:00',
+            secondStep:'1',
+            minuteStep:'1'
+        });
+    });
+</script>
+    
+
 </body>
 </html>
