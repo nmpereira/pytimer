@@ -148,6 +148,7 @@
         newVal = this.minute - step;
       } else {
         newVal = this.minute - this.minuteStep;
+        
       }
 
       if (newVal < 0) {
@@ -559,7 +560,7 @@
       if (step) {
         newVal = this.minute + step;
       } else {
-        newVal = this.minute + this.minuteStep - (this.minute % this.minuteStep);
+        newVal = parseInt(this.minute) + parseInt(this.minuteStep) - (parseInt(this.minute) % parseInt(this.minuteStep));   
       }
 
       if (newVal > 59) {
@@ -571,7 +572,7 @@
     },
 
     incrementSecond: function() {
-      var newVal = this.second + this.secondStep - (this.second % this.secondStep);
+      var newVal = parseInt(this.second) + parseInt(this.secondStep) - (parseInt(this.second) % parseInt(this.secondStep));
 
       if (newVal > 59) {
         this.incrementMinute(true);
