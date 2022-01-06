@@ -19,6 +19,9 @@
     
 
     <form class="form" method="post"> 
+            <div class="time_label-container">
+    <span class="unit_set" id="unit_sets"></span></div>
+    
     <label class="form__label" for="excercise"> Work:</label>
     <input class="form__input" type="text" name="excercise" id="excercise"  required=True>
     <span class="unit_time" id="unit_excercise"></span>
@@ -32,7 +35,6 @@
     <label class="form__label" for="Sets"> Sets:</label>
     <input class="form__input" type="number" name="sets" id="sets" placeholder="5" required=True min=0 max=99999999>
     
-    <span class="unit_set" id="unit_sets"></span>
     
 
     <div class="form__button-container">
@@ -40,7 +42,7 @@
 
     </form>
     </main>
-    <script type="text/javascript" src="../static/scripts/script.js"></script>
+    
     
     
     <script>        
@@ -53,7 +55,7 @@
     const set_input = document.getElementById('sets');
     const log_set = document.getElementById('unit_sets');
 
-    excercise_input.addEventListener('input', updateValue_set);
+    excercise_input.addEventListener('change', updateValue_set);
     rest_input.addEventListener('change', updateValue_set);
     set_input.addEventListener('change', updateValue_set);
 
@@ -69,10 +71,22 @@ function hmsToSecondsOnly(str) {
     return s;
 }
 
+    var secondsToHMS = (secs) => {
+    var sec_num = parseInt(secs, 10)
+    var hours   = Math.floor(sec_num / 3600)
+    var minutes = Math.floor(sec_num / 60) % 60
+    var seconds = sec_num % 60
 
+    return [hours,minutes,seconds]
+        .map(v => v < 10 ? "0" + v : v)
+        .filter((v,i) => v !== "00" || i > 0)
+        .join(":")
+}
 
-
+    
     function updateValue_set() {
+    
+    
     let seconds_excercise= hmsToSecondsOnly(excercise_input.value)
     let seconds_rest= hmsToSecondsOnly(rest_input.value)
 
@@ -85,9 +99,15 @@ function hmsToSecondsOnly(str) {
         sets_count=1
     }
     
-    log_excercise.textContent = Math.round((((seconds_excercise)/60) + Number.EPSILON) * 100) / 100 +' min';
-    log_rest.textContent = Math.round((((seconds_rest)/60) + Number.EPSILON) * 100) / 100 +' min';
-    log_set.textContent = 'Total time: ' + Math.round((((((seconds_excercise)/60) + Number.EPSILON) +((((seconds_rest)/60) + Number.EPSILON)))*sets_count)* 100) / 100 + ' min'
+    // log_excercise.textContent = secondsToHMS(Math.round((((seconds_excercise)) + Number.EPSILON)) );
+    // log_rest.textContent = secondsToHMS(Math.round((((seconds_rest)) + Number.EPSILON))  );
+
+    log_set.textContent = 'Total time: ' + secondsToHMS(Math.round((((((seconds_excercise)) + Number.EPSILON) +((((seconds_rest)) + Number.EPSILON)))*sets_count) ) )
+
+
+    // log_excercise.textContent = secondsToHMS(Math.round((((seconds_excercise)/60) + Number.EPSILON) * 100) / 100 +' min');
+    // log_rest.textContent = secondsToHMS(Math.round((((seconds_rest)/60) + Number.EPSILON) * 100) / 100 +' min');
+    // log_set.textContent = 'Total time: ' + secondsToHMS(Math.round((((((seconds_excercise)/60) + Number.EPSILON) +((((seconds_rest)/60) + Number.EPSILON)))*sets_count)* 100) / 100 + ' min')
 }
 
 

@@ -31,6 +31,19 @@ body {
     font-size: 1rem;
 }
 
+.unit_set{
+    font-weight: bold;
+    /* margin-bottom: 1.75rem; */
+    font-size: 11px;
+
+}
+
+.time_label-container{
+    display: grid;
+    justify-content: center;
+    grid-column: 1 / 4;
+    height: 13.5px;
+}
 .heading {
     display: block;
     font-size: 1.5rem;
@@ -52,7 +65,7 @@ body {
 
 .form {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 1.5rem;
     column-gap: .75rem;
     align-items: center;
