@@ -1,0 +1,51 @@
+
+
+
+
+{% if rest_status==True %}
+<main class="main"><h2 class="heading">Rest</h2>
+<span class="timer" id="timer">{{ rest }} s</span>
+<progress max={{ rest }} value={{ rest }} class="progress progress--rest" id="progressBar"></progress>  
+</main>
+{% else %}
+
+<main class="main"><h2 class="heading">GO</h2>
+<span class="timer" id="timer">{{ excercise }} s</span>
+<progress max={{ excercise }} value={{ excercise }} class="progress progress--set" id="progressBar"></progress>
+</main>
+{% endif %}
+
+
+    <!--<script>        
+    const timerElement = document.getElementById("timer");
+    const progressBar = document.getElementById("progressBar");
+
+    let rest_status=True;
+    let timerCounter = progressBar.max;
+
+    const interval= setInterval(()=>{
+        if (timerCounter <=1){
+            console.log(rest_status)
+            if (rest_status==True){
+
+                //window.location.href="{{url_for('rest')}}";
+                rest_status=False;
+                console.log(rest_status)
+            }else
+
+                //window.location.href="{{url_for('excercise')}}";
+                rest_status=True;
+            clearInterval(interval);
+        }
+        timerCounter = timerCounter - 1;
+        timerElement.innerText = timerCounter + "s";
+        progressBar.value = timerCounter;
+        
+
+    },1000);
+    
+
+
+
+
+    </script>-->
