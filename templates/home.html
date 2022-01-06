@@ -71,10 +71,17 @@ function hmsToSecondsOnly(str) {
     return s;
 }
 
-    function secondsToHMS(str){
-        return new Date(str * 1000).toISOString().substr(11, 8);
+    var secondsToHMS = (secs) => {
+    var sec_num = parseInt(secs, 10)
+    var hours   = Math.floor(sec_num / 3600)
+    var minutes = Math.floor(sec_num / 60) % 60
+    var seconds = sec_num % 60
 
-    }
+    return [hours,minutes,seconds]
+        .map(v => v < 10 ? "0" + v : v)
+        .filter((v,i) => v !== "00" || i > 0)
+        .join(":")
+}
 
     
     function updateValue_set() {

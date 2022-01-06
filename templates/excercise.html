@@ -15,7 +15,7 @@
 
 
         <main class="main"><h2 class="heading">Work</h2>
-    <span class="timer" id="timer">{{ excercise }} s</span>
+    <span class="timer" id="timer">{{ excercise_formatted }} </span>
     <progress max={{ excercise }} value={{ excercise }} class="progress progress--set" id="progressBar"></progress>
     </main>
 
@@ -28,13 +28,26 @@
 
     let timerCounter = progressBar.max;
 
+
+
+    var secondsToHMS = (secs) => {
+    var sec_num = parseInt(secs, 10)
+    var hours   = Math.floor(sec_num / 3600)
+    var minutes = Math.floor(sec_num / 60) % 60
+    var seconds = sec_num % 60
+
+    return [hours,minutes,seconds]
+        .map(v => v < 10 ? "0" + v : v)
+        .filter((v,i) => v !== "00" || i > 0)
+        .join(":")
+}
     const interval= setInterval(()=>{
         if (timerCounter <=1){
             window.location.href="{{url_for('rest')}}";
             clearInterval(interval);
         }
         timerCounter = timerCounter - 1;
-        timerElement.innerText = timerCounter + "s";
+        timerElement.innerText = secondsToHMS(timerCounter);
         progressBar.value = timerCounter;
         
 
