@@ -73,7 +73,7 @@ body {
     width: auto;
 }
 
-@media screen and (min-width: 26rem) {
+@media screen and (min-width: 1rem) {
     .form {
         grid-template-columns: 1fr auto 1fr;
     }
