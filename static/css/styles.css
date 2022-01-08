@@ -10,7 +10,7 @@ html {
 
 body {
     box-sizing: border-box;
-    max-width: 600px;
+    
     margin: 0 auto;
 }
 
@@ -25,6 +25,7 @@ body {
     color: white;
     padding: .5rem 2rem;
     margin-bottom: 1.75rem;
+    height: 35px;
 }
 
 .header__logo {
